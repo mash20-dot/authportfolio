@@ -87,7 +87,12 @@
             });
 
             const data = await res.json();
-            document.getElementById('signupMessage').innerText = data.message || data.Error;
+            if (data.message && data.message.includes("Account created successfully")) {
+                window.location.href = "login.html";
+            } else {
+                document.getElementById('signupMessage').innerText = data.message || data.Error;
+            }
+
         });
     </script>
 </body>
