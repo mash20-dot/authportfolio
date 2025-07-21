@@ -96,10 +96,3 @@
 </body>
 
 </html>
-
-if (data.access_token) {
-localStorage.setItem('token', data.access_token);
-window.location.href = "portfolio.html"; // Redirect to portfolio immediately
-} else {
-document.getElementById('loginMessage').innerText = data.message || data.Error;
-}
