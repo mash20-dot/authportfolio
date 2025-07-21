@@ -55,6 +55,16 @@
             font-weight: bold;
             color: #d32f2f;
         }
+
+        .redirect-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .redirect-link a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -69,10 +79,14 @@
     </form>
 
     <p id="signupMessage"></p>
+    <div class="redirect-link">
+        Already have an account? <a href="login.html">Login</a>
+    </div>
 
     <script>
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
             const user = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
@@ -87,12 +101,13 @@
             });
 
             const data = await res.json();
-            if (data.message && data.message.includes("Account created successfully")) {
+
+            if (data.message && data.message.toLowerCase().includes("success")) {
+                // Redirect to login page
                 window.location.href = "login.html";
             } else {
                 document.getElementById('signupMessage').innerText = data.message || data.Error;
             }
-
         });
     </script>
 </body>

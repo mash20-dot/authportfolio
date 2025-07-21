@@ -116,9 +116,10 @@
 
         function logout() {
             localStorage.removeItem('token');
-            document.getElementById('portfolioMessage').innerText = "You have been logged out.";
-            document.getElementById('skillsSection').style.display = 'none';
+            // Redirect to login page
+            window.location.href = "login.html";
         }
+
     </script>
 </body>
 
