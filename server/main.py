@@ -25,7 +25,7 @@ class User(db.Model):
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your-default-secret')
 
 #setting up MySQL connection
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI',"sqlite:///site.db")
 # This disables SQLAlchemy's event system for tracking object modifications (saves memory and avoids warnings)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initializing extensions
