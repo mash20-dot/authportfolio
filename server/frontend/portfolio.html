@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Backend Developer Portfolio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f6f6f6;
             color: #333;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
             max-width: 800px;
+            width: 90%;
             margin: auto;
+            padding: 20px;
         }
 
         h2 {
             color: #1a73e8;
             text-align: center;
+            font-size: 6vw;
         }
 
         button {
-            padding: 10px 15px;
+            padding: 12px 18px;
             margin: 10px 5px;
             border: none;
             background-color: #1a73e8;
             color: white;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 4vw;
         }
 
         button:hover {
@@ -36,20 +46,7 @@
             margin: 20px 0;
             font-weight: bold;
             text-align: center;
-        }
-
-        ul {
-            list-style-type: square;
-            margin-top: 10px;
-        }
-
-        a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+            font-size: 4vw;
         }
 
         #skillsSection {
@@ -59,35 +56,85 @@
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
+
+        h3,
+        h4 {
+            font-size: 5vw;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 4vw;
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 4vw;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Desktop view */
+        @media (min-width: 600px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+
+            #portfolioMessage,
+            li,
+            a {
+                font-size: 1rem;
+            }
+
+            h3,
+            h4 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <h2>Welcome to My Portfolio</h2>
-    <button onclick="loadPortfolio()">Load Portfolio</button>
-    <button onclick="logout()">Logout</button>
+    <div class="container">
+        <h2>Welcome to My Portfolio</h2>
+        <button onclick="loadPortfolio()">Load Portfolio</button>
+        <button onclick="logout()">Logout</button>
 
-    <p id="portfolioMessage"></p>
+        <p id="portfolioMessage"></p>
 
-    <div id="skillsSection" style="display: none;">
-        <h3>My name is Sakyi Mustapha</h3><br>
-        <h3>I am a Backend developer</h3><br>
-        <h4>And these are my stack and skills</h4>
+        <div id="skillsSection" style="display: none;">
+            <h3>My name is Sakyi Mustapha</h3>
+            <h3>I am a Backend developer</h3>
+            <h4>And these are my stack and skills:</h4>
 
-        <ul>
-            <li>Python (OOP, Decorators, Virtualenv)</li>
-            <li>Flask (Blueprints, JWT, SQLAlchemy)</li>
-            <li>Django (ORM, Admin Panel, Migrations)</li>
-            <li>MySQL (Joins, Indexing, Stored Procedures)</li>
-            <li>RESTful API Design & JSON Responses</li>
-            <li>JWT Authentication with Cookie Handling</li>
-            <li>Linux Terminal (Debian/Ubuntu)</li>
-            <li>Version Control (Git CLI, GitHub Actions)</li>
-            <li>Testing APIs using Postman & Insomnia</li>
-            <li>Basic CI/CD & Deployment (Gunicorn + Nginx)</li>
-        </ul>
-        <p>GitHub: <a href="https://github.com/mash20-dot" target="_blank">mash20-dot</a></p>
-        <p>Email: <a href="mailto:sakyimustapha5@gmail.com">sakyimustapha5@gmail.com</a></p>
+            <ul>
+                <li>Python (OOP, Decorators, Virtualenv)</li>
+                <li>Flask (Blueprints, JWT, SQLAlchemy)</li>
+                <li>Django (ORM, Admin Panel, Migrations)</li>
+                <li>MySQL (Joins, Indexing, Stored Procedures)</li>
+                <li>RESTful API Design & JSON Responses</li>
+                <li>JWT Authentication with Cookie Handling</li>
+                <li>Linux Terminal (Debian/Ubuntu)</li>
+                <li>Version Control (Git CLI, GitHub Actions)</li>
+                <li>Testing APIs using Postman & Insomnia</li>
+                <li>Basic CI/CD & Deployment (Gunicorn + Nginx)</li>
+            </ul>
+            <p>GitHub: <a href="https://github.com/mash20-dot" target="_blank">mash20-dot</a></p>
+            <p>Email: <a href="mailto:sakyimustapha5@gmail.com">sakyimustapha5@gmail.com</a></p>
+        </div>
     </div>
 
     <script>
@@ -116,10 +163,8 @@
 
         function logout() {
             localStorage.removeItem('token');
-            // Redirect to login page
             window.location.href = "login.html";
         }
-
     </script>
 </body>
 
