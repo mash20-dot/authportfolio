@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+            max-width: 400px;
+            margin: auto;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1a73e8;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #125ab3;
+        }
+
+        #loginMessage {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="loginMessage"></p>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(user)
+            });
+
+            const data = await res.json();
+            if (data.access_token) {
+                localStorage.setItem('token', data.access_token);
+                document.getElementById('loginMessage').innerText = "Login successful! Go to portfolio.html";
+            } else {
+                document.getElementById('loginMessage').innerText = data.message || data.Error;
+            }
+        });
+    </script>
+</body>
+
+</html>

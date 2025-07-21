@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask_jwt_extended import JWTManager
-from flask_jwt_extended import create_access_token, set_access_cookies
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, set_access_cookies, unset_jwt_cookies
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
 
@@ -101,7 +101,37 @@ def login():
     set_access_cookies(response, access_token)
     return response
 
+@app.route('/portfolio', methods=['POST'])
+@jwt_required()
+def port():
+    current_user = get_jwt_identity()
+    if current_user:
+        return jsonify({'message':f"welcome {current_user}, here is my portfolio"}), 201
 
+
+#Route for logout
+@app.route('/logout', methods=['POST'])
+def out():
+     response = jsonify({"msg": "logout successful"})
+     #this removes the jwt cookies from the user's browser, enbling them to log out
+     unset_jwt_cookies(response)
+     return response
+
+
+
+import os
+from flask import send_from_directory
+
+# Get absolute path to frontend folder
+FRONTEND_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend')
+
+@app.route('/')
+def front():
+    return send_from_directory(FRONTEND_FOLDER, 'login.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(FRONTEND_FOLDER, filename)
 
 
 

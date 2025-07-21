@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Backend Developer Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            color: #333;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #1a73e8;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px 5px;
+            border: none;
+            background-color: #1a73e8;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #125ab3;
+        }
+
+        #portfolioMessage {
+            margin: 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: square;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #skillsSection {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Welcome to My Portfolio</h2>
+    <button onclick="loadPortfolio()">Load Portfolio</button>
+    <button onclick="logout()">Logout</button>
+
+    <p id="portfolioMessage"></p>
+
+    <div id="skillsSection" style="display: none;">
+        <h3>My name is Sakyi Mustapha</h3><br>
+        <h3>I am a Backend developer</h3><br>
+        <h4>And these are my stack and skills</h4>
+
+        <ul>
+            <li>Python (OOP, Decorators, Virtualenv)</li>
+            <li>Flask (Blueprints, JWT, SQLAlchemy)</li>
+            <li>Django (ORM, Admin Panel, Migrations)</li>
+            <li>MySQL (Joins, Indexing, Stored Procedures)</li>
+            <li>RESTful API Design & JSON Responses</li>
+            <li>JWT Authentication with Cookie Handling</li>
+            <li>Linux Terminal (Debian/Ubuntu)</li>
+            <li>Version Control (Git CLI, GitHub Actions)</li>
+            <li>Testing APIs using Postman & Insomnia</li>
+            <li>Basic CI/CD & Deployment (Gunicorn + Nginx)</li>
+        </ul>
+        <p>GitHub: <a href="https://github.com/mash20-dot" target="_blank">mash20-dot</a></p>
+        <p>Email: <a href="mailto:sakyimustapha5@gmail.com">sakyimustapha5@gmail.com</a></p>
+    </div>
+
+    <script>
+        async function loadPortfolio() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                document.getElementById('portfolioMessage').innerText = "You must log in first!";
+                return;
+            }
+
+            const res = await fetch('/portfolio', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+
+            const data = await res.json();
+            if (data.message) {
+                document.getElementById('portfolioMessage').innerText = data.message;
+                document.getElementById('skillsSection').style.display = 'block';
+            } else {
+                document.getElementById('portfolioMessage').innerText = "Failed to load portfolio.";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            document.getElementById('portfolioMessage').innerText = "You have been logged out.";
+            document.getElementById('skillsSection').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
